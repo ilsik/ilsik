@@ -38,7 +38,7 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 	});
 	function checkIt(){
 		if(!$("#pw").val()){
-			alert('비밀번호를 입력하세요');
+			alert('수정하시려면 비밀번호를 입력하세요');
 			$("#pw").focus();
 			return false;
 		}
@@ -88,7 +88,14 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 				<input type="button"value="수정하기" id="update">
 				</td>
 			</tr>
+			<tr>
+				<td colspan="2">댓글</td>			
+			</tr>
+			<tr>
+				
+			</tr>
 		</table>
+		
 </div>
 </body>
 </html>

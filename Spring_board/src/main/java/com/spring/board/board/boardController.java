@@ -67,12 +67,14 @@ public class boardController {
 			int temp=Integer.parseInt(request.getParameter("pagenum2"));
 			index=temp/10*10;
 		}
-		
 		int count=10;
 		//페이지의 시작할 게시글 index
 		int start=0;
 		//1페이지 이외에는 게시글이 pageSize만큼 보여줘야한다
 		if(index!=0){
+			if(size%pageSize==0) {
+				index+=1;
+			}
 			start=(index-1)*pageSize+size%pageSize;
 		}
 		//페이지의 마지막 게시글 index
@@ -82,7 +84,9 @@ public class boardController {
 			//게시글순서는 역순이고 1페이지의 게시글개수는 유동적이다
 			end=size%pageSize;
 		}
-		
+		if(size%pageSize==0 && index!=0) {
+			index-=1;
+		}
 		//전체페이지 개수
 		int paging=size/pageSize;
 		//size를pageSize로 나누고 나머지가 있다면 그나머지 만큼을 보여줄 페이지가 필요하기때문에 +1
@@ -99,6 +103,7 @@ public class boardController {
 		int Previous=0;
 		//다음 시작페이지 범위로 이동한다
 		int next=0;
+		
 		//paging이 시작페이지범위에 속한다면 마지막페이지는 paging
 		if(startP==paging/pageSize*pageSize){
 			endP=paging;
@@ -112,7 +117,6 @@ public class boardController {
 		}
 		endP-=1;
 		end-=1;
-		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("startP", startP);
 		model.addAttribute("endP", endP);
