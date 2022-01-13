@@ -59,19 +59,23 @@
 			</td>
 		</tr>
 	</table>
-	<table>
-		<tr align="right">
+	<table border="1">
+		<tr align="center" >
 		<c:if test="${Previous ne 1}">
-			<td><a href="${cp }/board/main?pagenum2=${index-10}">이전</a></td>
+			<td width="50">
+			<button onclick="window.location.href='${cp }/board/main?pagenum2=${index-10}'">이전</button>
+			</td>
 		</c:if>
 		
-		<td width="700">
+		<td width="600">
 		<c:forEach var="i" begin="${startP}" end="${endP}">
-			<a href="${cp }/board/main?pagenum=${i}">${i+1}</a>
+			<button onclick="window.location.href='${cp }/board/main?pagenum=${i}'">${i+1}</button>
 		</c:forEach>
 			</td>
 			<c:if test="${next ne 1 }">
-				<td><a href="${cp }/board/main?pagenum2=${index+10}">다음</a></td>
+				<td width="50">
+				<button onclick="window.location.href='${cp }/board/main?pagenum2=${index+10}'">다음</button>
+				</td>
 			</c:if>
 		</tr>
 		</table>

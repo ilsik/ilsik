@@ -206,9 +206,10 @@ public class boardDAO {
 	public ArrayList<commentDTO>commentList(int ref){
 		ArrayList<commentDTO>commentList=new ArrayList<commentDTO>();
 		try {
+			System.out.println("dao 시작");
 			conn=datasource.getConnection();
 			
-			String sql="select * from comment where ref=?";
+			String sql="select * from comment where ref=? order by reLevel";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, ref);
 			rs=pstmt.executeQuery();
