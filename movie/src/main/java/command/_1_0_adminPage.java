@@ -14,6 +14,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 	
 	 	
 	    
-	return "1_0_adminPage.jsp";
+	return "1_0_adminPage";
 	}
 }

@@ -21,6 +21,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		request.setAttribute("cinemaList", cinemaList);
 	 	
 	    
-	return "1_1_cinemaList.jsp";
+	return "1_1_cinemaList";
 	}
 }

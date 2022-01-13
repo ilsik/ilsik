@@ -22,6 +22,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		request.setAttribute("memberList", memberList);
 	 	
 	    
-	return "1_1_memberList.jsp";
+	return "1_1_memberList";
 	}
 }

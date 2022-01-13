@@ -18,7 +18,7 @@ public class  TicketDAO{
 	ResultSet rs=null;
 	
 	public Connection getConn() throws Exception {
-		String dbURL = "jdbc:mysql://localhost:3307/Movie?serverTimezone=UTC&useSSL=false";
+		String dbURL = "jdbc:mysql://localhost:3306/Movie?serverTimezone=UTC&useSSL=false";
 		String dbID = "root";
 		String dbPassword = "root";
 		
@@ -30,8 +30,8 @@ public class  TicketDAO{
 		}
         
         return conn;
-	}public ArrayList<TicketBean>SelticketList(ArrayList<CinemaBean>cinemaList,int index) {
-	    ArrayList<TicketBean>SelticketList =new ArrayList<TicketBean>();
+	}public ArrayList<TicketBean>ticketList(ArrayList<CinemaBean>cinemaList,int index) {
+	    ArrayList<TicketBean>ticketList =new ArrayList<TicketBean>();
 		try {
 			conn=getConn();
 			String sql="select * from ticket where ticket_cinema_title=? and ticket_cinema_time=?";
@@ -51,7 +51,7 @@ public class  TicketDAO{
 				String seat1=rs.getString(7);
 				ticket.setTicket_seat1((char)seat1.charAt(0));
 				ticket.setTicket_seat2(rs.getInt(8));
-				SelticketList.add(ticket);
+				ticketList.add(ticket);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class  TicketDAO{
             if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {}}
             if(rs != null) {try {rs.close();} catch (SQLException e) {}}
 		}
-		return SelticketList;
+		return ticketList;
 	}public int insertTicket(TicketBean ticket) {
 		int check=-1;
 		try {

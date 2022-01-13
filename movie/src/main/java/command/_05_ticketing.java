@@ -24,13 +24,11 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		String []title=MovieDAO.getInstance().title();
 		
 		String selMovie=title[no];
-		
-		ArrayList<CinemaBean>cinemaTimeList=CinemaDAO.getInstance().cinemaTimeList(selMovie);
-		
+		ArrayList<CinemaBean>cinemaList=CinemaDAO.getInstance().cinemaList(selMovie);
 		request.setAttribute("titleNo", no);
-		request.setAttribute("cinemaTimeList", cinemaTimeList);
+		request.setAttribute("cinemaList", cinemaList);
 		request.setAttribute("selMovie", selMovie);
 		
-	return "0_5_ticketing.jsp";
+	return "0_5_ticketing";
 	}
 }

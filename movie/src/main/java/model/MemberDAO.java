@@ -18,7 +18,7 @@ public class  MemberDAO{
 	ResultSet rs=null;
 	
 	public Connection getConn() throws Exception {
-		String dbURL = "jdbc:mysql://localhost:3307/Movie?serverTimezone=UTC&useSSL=false";
+		String dbURL = "jdbc:mysql://localhost:3306/Movie?serverTimezone=UTC&useSSL=false";
 		String dbID = "root";
 		String dbPassword = "root";
 		
@@ -220,7 +220,8 @@ public class  MemberDAO{
             if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {}}
 		}
 		return check;
-	}public int pointCharge(int charge,String log) {
+	}
+	public int pointCharge(int charge,String log) {
 		int check=-1;
 		int point=0;
 		try {

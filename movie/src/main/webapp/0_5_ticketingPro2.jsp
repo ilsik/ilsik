@@ -70,11 +70,8 @@
 				<tr>
 					<th>선택한 좌석</th>
 					<td>
-					<c:forEach var="i" items="${seat }">
-						<c:out value="${i }"/>
-						<input type="hidden" name="index1" value="${i }" id="index1">
-					</c:forEach>
-					
+						${seat }
+						<input type="hidden" name="index1" value="${seat }" id="index1">
 					</td>
 				</tr>
 				<tr>

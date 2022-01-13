@@ -20,6 +20,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		
 		request.setAttribute("title", title);
 		
-	return "0_6_movieList.jsp";
+	return "0_6_movieList";
 	}
 }

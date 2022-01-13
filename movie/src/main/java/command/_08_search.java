@@ -18,6 +18,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 			
 		
 		
-	return "0_8_search.jsp";
+	return "08_search";
 	}
 }

@@ -32,6 +32,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 	    int check= MemberDAO.getInstance().join(member);
 	    request.setAttribute("check", check);
 	    
-	return "0_1_joinPro.jsp";
+	return "0_1_joinPro";
 	}
 }

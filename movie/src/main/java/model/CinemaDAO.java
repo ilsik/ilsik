@@ -18,7 +18,7 @@ public class CinemaDAO {
 	ResultSet rs=null;
 	
 	public Connection getConn() throws Exception {
-		String dbURL = "jdbc:mysql://localhost:3307/Movie?serverTimezone=UTC&useSSL=false";
+		String dbURL = "jdbc:mysql://localhost:3306/Movie?serverTimezone=UTC&useSSL=false";
 		String dbID = "root";
 		String dbPassword = "root";
 		
@@ -31,8 +31,8 @@ public class CinemaDAO {
         
         return conn;
 	}
-	public ArrayList<CinemaBean>cinemaTimeList(String selMovie) {
-		ArrayList<CinemaBean>cinemaTimeList=new ArrayList<CinemaBean>();
+	public ArrayList<CinemaBean>cinemaList(String selMovie) {
+		ArrayList<CinemaBean>cinemaList=new ArrayList<CinemaBean>();
 		int size=0;
 		
 	try {
@@ -49,7 +49,7 @@ public class CinemaDAO {
 			cinema.setCinema_type(rs.getString(3));
 			cinema.setCinema_theater(rs.getInt(4));
 			cinema.setCinema_price(rs.getInt(5));
-			cinemaTimeList.add(cinema);
+			cinemaList.add(cinema);
 		}
 	}catch (Exception e) {
 		e.printStackTrace();// TODO: handle exception
@@ -57,7 +57,7 @@ public class CinemaDAO {
 		if(conn != null) {try {conn.close();} catch (SQLException e) {}}
         if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {}}
         if(rs != null) {try {rs.close();} catch (SQLException e) {}}
-	}return cinemaTimeList;
+	}return cinemaList;
 	
 	}public ArrayList<CinemaBean>getCinemaList(){
 		ArrayList<CinemaBean>cinemaList=new ArrayList<CinemaBean>();

@@ -14,6 +14,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 	
 	 	
 	    
-	return "0_1_join.jsp";
+	return "0_1_join";
 	}
 }

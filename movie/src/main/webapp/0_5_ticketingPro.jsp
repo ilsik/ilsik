@@ -11,8 +11,9 @@
 	<div align="center">
 	<form action="ticketingPro2.do">
 	<table border="1">
-	<h2><c:out value="${ticketList[index].ticket_theater }관 "/></h2>
-	<h2><c:out value="${ticketList[index].ticket_cinema_time } 영화"/></h2>
+	
+	<h2><c:out value="${cinemaList[index].cinema_theater }관 "/></h2>
+	<h2><c:out value="${cinemaList[index].cinema_time } 영화"/></h2>
 	<br>
 	<img alt="screen" src="img/screen.png">
 	
@@ -36,34 +37,7 @@
 		<% int temp=(int)num1+1;
 		num1=(char)temp;%>
 	</c:forEach>
-	<%-- <%=theater[index]%>관<%=time[index]%>영화
-	<br>
-	
-	
-	<br>
-	
-	<c:forEach var="i" items="${seatCheck }" varStatus="status">
-		<tr >
-		
-		<c:forEach var="j"></c:forEach>
-	</c:forEach>
-	<%char num1='A';
-	for(int i=0;i<seatCheck.length;i++){%>
-		<tr >
-		<% int num2=1;%>
-		<%for(int j=0;j<seatCheck[i].length;j++){%>
-			<%if(seatCheck[i][j]==0){%>
-			
-			<% }else{%>
-			<td width="40"><%=num1%>-<%=num2%><br>X</td>
-			<%} %>
-		<%
-		num2++;
-		}%>
-		</tr>
-	<%
-	
-	}%> --%>
+
 	</table>
 	<input type="submit"value="예매하기">
 	</form>

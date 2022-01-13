@@ -22,6 +22,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		
 		request.setAttribute("check", check);
 		
-	return "0_7_idcheck.jsp";
+	return "0_7_idcheck";
 	}
 }

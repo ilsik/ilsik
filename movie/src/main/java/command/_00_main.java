@@ -17,6 +17,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 	 	
 	 	request.setAttribute("title", title);
 	    
-	return "_center.jsp";
+	return "_center";
 	}
 }

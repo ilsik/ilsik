@@ -31,6 +31,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		
 		request.setAttribute("check", check);
 	    
-	return "1_1_cinemaAddPro.jsp";
+	return "1_1_cinemaAddPro";
 	}
 }

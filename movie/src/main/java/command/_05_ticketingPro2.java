@@ -22,6 +22,13 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 	response.setCharacterEncoding("EUC-KR");
 	
 		String []seat=request.getParameterValues("index1");
+		String seatlist="";
+		for(int i=0;i<seat.length;i++) {
+			seatlist+=seat[i];
+			if(i != seat.length-1) {
+				seatlist+=",";
+			}
+		}
 		
 		int index=Integer.parseInt(request.getParameter("index"));
 		String str=request.getParameter("titleNo");
@@ -29,8 +36,7 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		
 		String []title=MovieDAO.getInstance().title();
 		String selMovie=title[no];
-		System.out.println(selMovie);
-		ArrayList<CinemaBean>cinemaTimeList=CinemaDAO.getInstance().cinemaTimeList(selMovie);
+		ArrayList<CinemaBean>cinemaList=CinemaDAO.getInstance().cinemaList(selMovie);
 		HttpSession session=request.getSession();
 		String log=(String)session.getAttribute("log");
 		int point=MemberDAO.getInstance().pointchekc(log);
@@ -39,10 +45,10 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		request.setAttribute("index", index);
 		request.setAttribute("point", point);
 		request.setAttribute("selMovie", selMovie);
-		request.setAttribute("time", cinemaTimeList.get(index).getCinema_time());
-		request.setAttribute("seat", seat);
-		request.setAttribute("price", cinemaTimeList.get(index).getCinema_price()*seat.length);
+		request.setAttribute("time", cinemaList.get(index).getCinema_time());
+		request.setAttribute("seat", seatlist);
+		request.setAttribute("price", cinemaList.get(index).getCinema_price()*seat.length);
 		
-	return "0_5_ticketingPro2.jsp";
+	return "0_5_ticketingPro2";
 	}
 }

@@ -17,7 +17,7 @@
 	<hr>
 	<h2>상영 시간 선택</h2>
 	<h3>1관</h3>
-	<c:forEach var="cinema" items="${ cinemaTimeList }" varStatus="status">
+	<c:forEach var="cinema" items="${ cinemaList }" varStatus="status">
 		<c:if test="${cinema.cinema_theater eq 1 }">
 		<tr>
 			<td><button onclick="window.location.href='ticketingPro.do?index=${status.index }&title=${titleNo}'">${cinema.cinema_time}</button></td>
@@ -26,7 +26,7 @@
 	</c:forEach>
 	<hr>
 	<h3>2관</h3>
-	<c:forEach var="cinema" items="${ cinemaTimeList }" varStatus="status">
+	<c:forEach var="cinema" items="${ cinemaList }" varStatus="status">
 		<c:if test="${cinema.cinema_theater eq 2 }">
 		<tr>
 			<td><button onclick="window.location.href='ticketingPro.do?index=${status.index }&title=${titleNo }'">${cinema.cinema_time}</button></td>
@@ -35,10 +35,10 @@
 	</c:forEach>
 	<hr>
 	<h3>3관</h3>
-	<c:forEach var="cinema" items="${ cinemaTimeList }" varStatus="status">
+	<c:forEach var="cinema" items="${ cinemaList }" varStatus="status">
 		<c:if test="${cinema.cinema_theater eq 3 }">
 		<tr>
-			<td><button onclick="window.location.href='ticketingPro.do?index=${status.index }&title=${selMovie }'">${cinema.cinema_time}</button></td>
+			<td><button onclick="window.location.href='ticketingPro.do?index=${status.index }&title=${titleNo }'">${cinema.cinema_time}</button></td>
 		</tr>
 		</c:if>
 	</c:forEach>

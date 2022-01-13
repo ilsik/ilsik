@@ -34,6 +34,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 	    request.setAttribute("ticketList", ticketList);
 		request.setAttribute("memberList", memberList);
 		request.setAttribute("index", index);
-	return "0_4_mypage.jsp";
+	return "0_4_mypage";
 	}
 }

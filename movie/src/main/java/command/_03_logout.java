@@ -15,6 +15,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		HttpSession session=request.getSession();
 		session.invalidate();
 	    
-	return "0_3_logout.jsp";
+	return "0_3_logout";
 	}
 }

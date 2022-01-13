@@ -78,6 +78,7 @@ public class controller extends HttpServlet{
 		String view="";
 		try {
 			view=com.reqPro(request, response);
+			view+=".jsp";
 			request.setAttribute("view", view);
 		}catch (Exception e) {
 			e.printStackTrace();// TODO: handle exception

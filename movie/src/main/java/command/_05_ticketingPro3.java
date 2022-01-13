@@ -26,18 +26,17 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		HttpSession session =request.getSession();
 		String log=(String)session.getAttribute("log");
 		
-		System.out.println("실행");
 		String buy_type=request.getParameter("buy_type");
 		String selMovie=request.getParameter("selMovie");
 		int index=Integer.parseInt(request.getParameter("index"));
-		String seat[]=request.getParameterValues("index1");
+		String seatlist=request.getParameter("index1");
+		String seat[]=seatlist.split(",");
 		int point=Integer.parseInt(request.getParameter("point"));
 		int price=Integer.parseInt(request.getParameter("price"));
 		
-		System.out.println(Arrays.toString(seat));
 		
 		
-		ArrayList<CinemaBean>cinemaTimeList=CinemaDAO.getInstance().cinemaTimeList(selMovie);
+		ArrayList<CinemaBean>cinemaList=CinemaDAO.getInstance().cinemaList(selMovie);
 		int check=0;
 		
 		if(price <= point) {
@@ -47,24 +46,21 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 				ticket.setTicket_memberid(log);
 				ticket.setTicket_buy_type(buy_type);
 				ticket.setTicket_cinema_title(selMovie);
-				ticket.setTicket_cinema_time(cinemaTimeList.get(index).getCinema_time());
-				ticket.setTicket_theater(cinemaTimeList.get(index).getCinema_theater());
-				System.out.println(token[0]+"seat1");
+				ticket.setTicket_cinema_time(cinemaList.get(index).getCinema_time());
+				ticket.setTicket_theater(cinemaList.get(index).getCinema_theater());
 				ticket.setTicket_seat1(token[0].charAt(0));
 				ticket.setTicket_seat2(Integer.parseInt(token[1]));
 				check=TicketDAO.getInstance().insertTicket(ticket);
-				System.out.println(check);
 				if(check==-1) {
 					break;
 				}
-				point=MemberDAO.getInstance().pointUse(cinemaTimeList.get(index).getCinema_price(), log);
+				point=MemberDAO.getInstance().pointUse(cinemaList.get(index).getCinema_price(), log);
 			}
 		}
-		System.out.println(point);
 		
 		request.setAttribute("check", check);
 		request.setAttribute("point", point);
 		
-	return "0_5_ticketingPro3.jsp";
+	return "0_5_ticketingPro3";
 	}
 }

@@ -26,6 +26,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		
 		request.setAttribute("check", check);
 		
-	return "0_9_charge.jsp";
+	return "0_9_charge";
 	}
 }

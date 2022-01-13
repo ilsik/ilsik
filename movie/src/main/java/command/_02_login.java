@@ -13,6 +13,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 	
 	    
-	return "0_2_login.jsp";
+	return "0_2_login";
 	}
 }

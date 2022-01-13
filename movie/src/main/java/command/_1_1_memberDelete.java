@@ -21,6 +21,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		request.setAttribute("check", check);
 	 	
 	    
-	return "1_1_memberDelete.jsp";
+	return "1_1_memberDelete";
 	}
 }

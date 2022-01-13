@@ -17,7 +17,7 @@ public class  MovieDAO{
 	ResultSet rs=null;
 	
 	public Connection getConn() throws Exception {
-		String dbURL = "jdbc:mysql://localhost:3307/Movie?serverTimezone=UTC&useSSL=false";
+		String dbURL = "jdbc:mysql://localhost:3306/Movie?serverTimezone=UTC&useSSL=false";
 		String dbID = "root";
 		String dbPassword = "root";
 		

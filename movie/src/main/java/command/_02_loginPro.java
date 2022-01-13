@@ -27,6 +27,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		}
 		request.setAttribute("check", check);
 	    
-	return "0_2_loginPro.jsp";
+	return "0_2_loginPro";
 	}
 }

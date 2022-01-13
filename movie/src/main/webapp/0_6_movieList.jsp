@@ -9,8 +9,8 @@
     		<c:if test="${(status.index+1)%3 eq 0}">
     			</tr>
     			<tr>	
-    			<td align="center"><button onclick="window.location.href='ticketing.do?titleno=${status.index}'">예매하기</button></td>
-    			<td align="center"><button onclick="window.location.href='ticketing.do?titleno=${status.index}'">예매하기</button></td>
+    			<td align="center"><button onclick="window.location.href='ticketing.do?titleno=${status.index-2}'">예매하기</button></td>
+    			<td align="center"><button onclick="window.location.href='ticketing.do?titleno=${status.index-1}'">예매하기</button></td>
     			<td align="center"><button onclick="window.location.href='ticketing.do?titleno=${status.index}'">예매하기</button></td>
     			</tr>
     			<tr>

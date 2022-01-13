@@ -18,6 +18,6 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 	 	
 	 	request.setAttribute("title", title);
 	    
-	return "1_1_cinemaAdd.jsp";
+	return "1_1_cinemaAdd";
 	}
 }
