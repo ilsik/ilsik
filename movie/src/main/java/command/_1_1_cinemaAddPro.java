@@ -26,7 +26,7 @@ public String reqPro(HttpServletRequest request, HttpServletResponse response)
 		cinema.setCinema_type(type);
 		cinema.setCinema_theater(theater);
 		cinema.setCinema_price(price);
-	 	
+		
 		int check=CinemaDAO.getInstance().cinemaAdd(cinema);
 		
 		request.setAttribute("check", check);

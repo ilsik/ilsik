@@ -203,4 +203,30 @@ public class boardDAO {
 		}
 		return check;
 	}
+	public ArrayList<commentDTO>commentList(int ref){
+		ArrayList<commentDTO>commentList=new ArrayList<commentDTO>();
+		try {
+			conn=datasource.getConnection();
+			
+			String sql="select * from comment where ref=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				commentDTO comment=new commentDTO();
+				comment.setName(rs.getString(1));
+				comment.setContent(rs.getString(2));
+				comment.setRef(rs.getInt(3));
+				comment.setReStep(rs.getInt(4));
+				comment.setReLevel(rs.getInt(5));
+				comment.setRegdate(rs.getString(6));
+				commentList.add(comment);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			finallyClose();
+		}
+		return commentList;
+	}
 }

@@ -183,8 +183,11 @@ public class boardController {
 		
 		int no=Integer.parseInt(request.getParameter("number"));
 		boardDTO board=dao.selBoard(no);
+		ArrayList<commentDTO>commentList=dao.commentList(no);
+		
 		
 		model.addAttribute("board",board);
+		model.addAttribute("commentList", commentList);
 		System.out.println("===========보드글확인 끝======================");
 		return "/board/06_boardUpdate";
 				

@@ -7,6 +7,7 @@ public class boardDTO {
 	private String content;
 	private String name;
 	private String pw;
+	private String regdate;
 	public int getNum() {
 		return num;
 	}
@@ -42,5 +43,11 @@ public class boardDTO {
 	}
 	public void setPw(String pw) {
 		this.pw = pw;
+	}
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
 }
