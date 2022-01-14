@@ -86,6 +86,25 @@ public class memberDAO {
 			finallyClose();
 		}
 		return check;
+	}public String name(String id,String pw) {
+		String name="";
+		try {
+			conn=datasource.getConnection();
+			
+			String sql="select member_name from member where member_id=? and member_pw=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				name=rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			finallyClose();
+		}
+		return name;
 	}
 	
 }	

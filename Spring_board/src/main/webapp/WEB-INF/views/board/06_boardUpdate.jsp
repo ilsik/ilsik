@@ -35,6 +35,8 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 				});
 			}
 		});
+		
+		
 	});
 	function checkIt(){
 		if(!$("#pw").val()){
@@ -44,6 +46,111 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 		}
 		return true;
 	}
+	/* function addRe(){
+		var addreply="<div class=reply>";
+		addreply+="<br><tr>";
+		addreply+="<td>${sessionScope.name}</td><br>";
+		addreply+="</tr>";
+		addreply+="<tr>";
+		addreply+="<td colspan='2'><textarea rows='5' cols='100' id='replyContent'></textarea></td>";
+		addreply+="</tr>";
+		addreply+="<tr align='right'>";
+		addreply+="<td colspan='2'><input type='button' id='replySubmit' value='답글 달기' onclick='replySubmit()'>";
+		addreply+="<input type='hidden' id='replyName' value='${sessionScope.name}'>";
+		addreply+="<input type='hidden' id='replyRef' value='${board.num}'>";
+		addreply+="</td>";
+		addreply+="</tr>";
+			$("#addReply").append(addreply);
+	} */
+/* 	function addRere(){
+		var addreply="<div class=rereply>";
+		addreply+="<br><tr>";
+		addreply+="<td>${sessionScope.name}</td><br>";
+		addreply+="</tr>";
+		addreply+="<tr>";
+		addreply+="<td colspan='2'><textarea rows='5' cols='100' id='rereplyContent'></textarea></td>";
+		addreply+="</tr>";
+		addreply+="<tr align='right'>";
+		addreply+="<td colspan='2'><input type='button' id='rereplySubmit' value='답글 달기' onclick='rereplySubmit()'>";
+		addreply+="<input type='hidden' id='rereplyName' value='${sessionScope.name}'>";
+		addreply+="<input type='hidden' id='rereplyRef' value='${board.num}'>";
+		addreply+="<input type='hidden' id='rereplyReStep' value='${comment.reStep}'>";
+		addreply+="<input type='hidden' id='rereplyReLevel' value='${comment.reLevel}'>";
+		addreply+="</td>";
+		addreply+="</tr>";
+			$("#addRereply").append(addreply);
+	} */
+	
+	function rereplySubmit(){
+		if($("#rereplySubmit").val()){
+			var query ={
+					name : $("#rereplyName").val(),
+					content : $("#rereplyContent").val(),
+					ref : $("#rereplyRef").val(),
+					reStep: $("#rereplyReStep").val(),
+					reLevel : $("#rereplyReLevel").val()
+				};
+		}
+		else{
+			alert('내용을 입력하세요');
+		}
+	}function commentSubmit(){
+		if($("#commentSubmit").val()){
+			var query ={
+					name : $("#commentName").val(),
+					content : $("#comContent").val(),
+					ref : $("#commentRef").val(),
+					reStep: $("#commentReStep").val(),
+				};
+			$.ajax({
+				type : "post",
+				url : "${cp}/board/comment",
+				data : query,
+				success : function(data){
+					var str = '<p id="check">';
+					var loc = data.indexOf(str);
+					var len = str.length;
+					var check=data.substr(loc+len,1);
+					if(check == 1){
+						alert('댓글을 달았습니다');
+						location.href="${cp}/board/boardUpdate?number=${board.num}";
+					}
+				}
+			});
+		}else{
+			alert('내용을 입력하세요');
+		}
+	}
+	$("#replySubmit").click(function(){
+		alert('눌림');
+		if($("#replyContent").val()){
+			var query ={
+				name : $("#replyName").val(),
+				content : $("#replyContent").val(),
+				ref : $("#replyRef").val(),
+				reStep: $("#replyReStep").val(),
+				reLevel : $("#replyReLevel").val()
+			};
+			alert(query);
+			$.ajax({
+				type : "post",
+				url : "${cp}/board/reply",
+				data : query,
+				success : function(data){
+					var str = '<p id="check">';
+					var loc = data.indexOf(str);
+					var len = str.length;
+					var check=data.substr(loc+len,1);
+					if(check == 1){
+						alert('답글을 달았습니다');
+						location.href="${cp}/board/boardUpdate?number=${board.num}";
+					}
+				}
+			});
+		}else{
+			alert('내용을 입력하세요');
+		}
+	});
 </script>
 </head>
 <body>
@@ -80,7 +187,7 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td width="200"><textarea rows="20" cols="30"name="content" disabled="disabled">${board.content }</textarea></td>
+				<td width="200"><textarea rows="20" cols="100"name="content" disabled="disabled">${board.content }</textarea></td>
 			</tr>
 			<tr>
 				<td width="200" align="center"colspan="2">
@@ -89,11 +196,92 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">댓글</td>			
+				<td colspan="2">댓글 ${size}</td>			
+			</tr>
+			<c:forEach var="comment" items="${commentList}" varStatus="i">
+			
+			<c:if test="${comment.reStep == 2 }">
+			
+			<tr>
+				<td colspan="2">
+				${comment.name}<br>
+				${comment.content}<br>
+				<font size="2">${comment.regdate}</font>
+				<br>
+				<form action="${cp}/board/reply" method="post">
+				<input id="replyContent" type="text" name="replyContent">
+				<input id="replySubmit" type="submit" value="답글쓰기">
+				<input type="hidden" id="replyReStep" value="${comment.reStep }" name="replyReStep">
+				<input type="hidden" id="replyReLevel" value="${comment.reLevel }" name="replyReLevel">
+				<input type='hidden' id='replyName' value='${sessionScope.name}' name="replyName">
+				<input type='hidden' id='replyRef' value='${board.num}' name="replyRef">
+				</form>
+				</td>
+			</tr>
+			
+			</c:if><c:if test="${comment.reStep > 2 }">
+			
+			<tr>
+				<td colspan="2">
+				<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:forEach>
+				ㄴ&nbsp;
+				<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:forEach>
+				${comment.name}<br>
+				<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:forEach>
+				${comment.content}<br>
+				<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:forEach>
+				<font size="2">${comment.regdate}</font>
+				<br>
+				<form action="${cp}/board/rereply" method="post">
+					<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					</c:forEach>
+					<input id="rereplyContent" type="text" name="rereplyContent">
+					<input id="replySubmit" type="submit" value="답글쓰기">
+					<input type="hidden" id="replyReStep" value="${comment.reStep }" name="rereplyReStep">
+					<input type="hidden" id="replyReLevel" value="${comment.reLevel }" name="rereplyReLevel">
+					<input type='hidden' id='replyName' value='${sessionScope.name}' name="rereplyName">
+					<input type='hidden' id='replyRef' value='${board.num}' name="rereplyRef">
+				</form>
+				</td>
+			</tr>
+			
+				
+			</c:if>
+			</c:forEach>
+			<c:if test="${sessionScope.name eq null}">
+			<tr>
+				<td colspan="2"><textarea rows="5" cols="100" disabled="disabled">로그인 후 댓글을 달아보세요.</textarea></td>
+			</tr>
+			</c:if>
+			<c:if test="${sessionScope.name ne null}">
+			
+			<tr>
+				<td>${sessionScope.name}</td>
 			</tr>
 			<tr>
-				
+				<td colspan="2"><textarea rows="5" cols="100" id="comContent"></textarea></td>
 			</tr>
+			<tr align="right">
+				<td colspan="2">
+				<input type="button" id="commentSubmit" value="댓글달기" onclick="commentSubmit()">
+				<input type="hidden" id="commentName" value="${sessionScope.name}">
+				<input type="hidden" id="commentRef" value="${board.num}">
+				<input type="hidden" id="commentReStep" value="2">
+				</td>
+			</tr>
+			
+			
+			</c:if>
+			
 		</table>
 		
 </div>

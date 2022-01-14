@@ -67,9 +67,11 @@ public class memberController {
 	 	String pw=request.getParameter("pw");
 	 	
 	 	int check=dao.login(id, pw);
+	 	String name=dao.name(id, pw);
 	    if(check==1) {
 	    	HttpSession session=request.getSession();
 	    	session.setAttribute("log", id);
+	    	session.setAttribute("name", name);
 	    }
 	    System.out.println(id);
 	    System.out.println(pw);

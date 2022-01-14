@@ -206,9 +206,10 @@ public class boardDAO {
 	public ArrayList<commentDTO>commentList(int ref){
 		ArrayList<commentDTO>commentList=new ArrayList<commentDTO>();
 		try {
+			System.out.println("dao 시작");
 			conn=datasource.getConnection();
 			
-			String sql="select * from comment where ref=?";
+			String sql="select * from comment where ref=? order by reLevel";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, ref);
 			rs=pstmt.executeQuery();
@@ -228,5 +229,73 @@ public class boardDAO {
 			finallyClose();
 		}
 		return commentList;
+	}
+	public int reply(commentDTO comment) {
+		int check=-1;
+		ArrayList<commentDTO>commentList=commentList(comment.getRef());
+		try {
+			conn=datasource.getConnection();
+			
+			String sql="update comment set reLevel=reLevel+1 where reLevel >= ? and ref=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,comment.getReLevel()+1);
+			pstmt.setInt(2,comment.getRef());
+			pstmt.executeUpdate();
+			
+			sql="insert into comment value(?,?,?,?,?,now())";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,comment.getName());
+			pstmt.setString(2,comment.getContent());
+			pstmt.setInt(3,comment.getRef());
+			pstmt.setInt(4,comment.getReStep()+1);
+			pstmt.setInt(5,comment.getReLevel()+1);
+			pstmt.executeUpdate();
+			check=1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			finallyClose();
+		}return check;
+	}
+	public int maxReLevel(int ref) {
+		int maxReLevel=0;
+		
+		try {
+			conn=datasource.getConnection();
+			
+			String sql="select max(reLevel) from comment where ref=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				maxReLevel=rs.getInt(1);
+				maxReLevel+=1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			finallyClose();
+		}
+		return maxReLevel;
+	}public int comment(commentDTO comment) {
+		int check=-1;
+		
+		try {
+			conn=datasource.getConnection();
+			
+			String sql="insert into comment value(?,?,?,?,?,now())";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, comment.getName());
+			pstmt.setString(2, comment.getContent());
+			pstmt.setInt(3,comment.getRef());
+			pstmt.setInt(4,comment.getReStep());
+			pstmt.setInt(5,comment.getReLevel());
+			pstmt.executeUpdate();
+			check=1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			finallyClose();
+		}return check;
 	}
 }

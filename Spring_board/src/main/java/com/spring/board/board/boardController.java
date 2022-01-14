@@ -184,8 +184,9 @@ public class boardController {
 		int no=Integer.parseInt(request.getParameter("number"));
 		boardDTO board=dao.selBoard(no);
 		ArrayList<commentDTO>commentList=dao.commentList(no);
+		int size=commentList.size();
 		
-		
+		model.addAttribute("size", size);
 		model.addAttribute("board",board);
 		model.addAttribute("commentList", commentList);
 		System.out.println("===========보드글확인 끝======================");
@@ -241,6 +242,89 @@ public class boardController {
 		model.addAttribute("check",check);
 		System.out.println("===========보드글수정프로2 끝======================");
 		return "/board/06_boardUpdatePro2";
+				
+	}
+	@RequestMapping(value = "/board/reply")
+	public String reply(HttpServletRequest request, Model model) {
+		System.out.println("===========답글 시작======================");
+		
+		String name=request.getParameter("replyName");
+		System.out.println("name"+name);
+		String content=request.getParameter("replyContent");
+		System.out.println("content"+content);
+		int ref=Integer.parseInt(request.getParameter("replyRef"));
+		System.out.println("ref"+ref);
+		int reStep=Integer.parseInt(request.getParameter("replyReStep"));
+		System.out.println("reStep"+reStep);
+		int reLevel=Integer.parseInt(request.getParameter("replyReLevel"));
+		System.out.println("reLevel"+reLevel);
+		commentDTO comment=new commentDTO();
+		
+		comment.setName(name);
+		comment.setContent(content);
+		comment.setRef(ref);
+		comment.setReStep(reStep);
+		comment.setReLevel(reLevel);
+		
+		model.addAttribute("number", comment.getRef());
+		int check=dao.reply(comment);
+		
+		System.out.println("===========답글 끝======================");
+		
+		return "redirect:/board/boardUpdate";
+	}
+	@RequestMapping(value = "/board/rereply")
+	public String rereply(HttpServletRequest request, Model model) {
+		System.out.println("===========re답글 시작======================");
+		
+		String name=request.getParameter("rereplyName");
+		System.out.println("name"+name);
+		String content=request.getParameter("rereplyContent");
+		System.out.println("content"+content);
+		int ref=Integer.parseInt(request.getParameter("rereplyRef"));
+		System.out.println("ref"+ref);
+		int reStep=Integer.parseInt(request.getParameter("rereplyReStep"));
+		System.out.println("reStep"+reStep);
+		int reLevel=Integer.parseInt(request.getParameter("rereplyReLevel"));
+		System.out.println("reLevel"+reLevel);
+		commentDTO comment=new commentDTO();
+		
+		comment.setName(name);
+		comment.setContent(content);
+		comment.setRef(ref);
+		comment.setReStep(reStep);
+		comment.setReLevel(reLevel);
+		
+		int check=dao.reply(comment);
+		
+		model.addAttribute("number", comment.getRef());
+		
+		System.out.println("===========re답글 끝======================");
+		return "redirect:/board/boardUpdate";
+				
+	}
+	@RequestMapping(value = "/board/comment")
+	public String comment(HttpServletRequest request, Model model) {
+		System.out.println("===========댓글 시작======================");
+		
+		String name=request.getParameter("name");
+		String content=request.getParameter("content");
+		int ref=Integer.parseInt(request.getParameter("ref"));
+		int reStep=Integer.parseInt(request.getParameter("reStep"));
+		int reLevel=dao.maxReLevel(ref);
+		commentDTO comment=new commentDTO();
+		
+		comment.setName(name);
+		comment.setContent(content);
+		comment.setRef(ref);
+		comment.setReStep(reStep);
+		comment.setReLevel(reLevel);
+		
+		int check=dao.comment(comment);
+		model.addAttribute("check",check);
+		
+		System.out.println("===========댓글 끝======================");
+		return "board/07_comment";
 				
 	}
 	
