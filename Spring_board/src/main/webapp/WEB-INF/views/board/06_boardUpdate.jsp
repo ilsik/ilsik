@@ -81,21 +81,19 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 			$("#addRereply").append(addreply);
 	} */
 	
-	function rereplySubmit(){
-		if($("#rereplySubmit").val()){
-			var query ={
-					name : $("#rereplyName").val(),
-					content : $("#rereplyContent").val(),
-					ref : $("#rereplyRef").val(),
-					reStep: $("#rereplyReStep").val(),
-					reLevel : $("#rereplyReLevel").val()
-				};
-		}
-		else{
+	function rereplySubmit(i){
+		debugger;
+		var reply=document.forms[i];
+		if(reply.rereplyContent.value==""){
 			alert('내용을 입력하세요');
+			return false;	
+		}else if(${sessionScope.name eq null}){
+			alert('로그인 후 이용하세요');
+			return false;
 		}
+		return true;
 	}function commentSubmit(){
-		if($("#commentSubmit").val()){
+		if($("#comContent").val()){
 			var query ={
 					name : $("#commentName").val(),
 					content : $("#comContent").val(),
@@ -120,8 +118,20 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 		}else{
 			alert('내용을 입력하세요');
 		}
+	}function replySubmit(i){
+		
+		var reply=document.forms[i];
+		if(reply.replyContent.value==""){
+			alert('내용을 입력하세요');
+			return false;	
+		}else if(${sessionScope.name eq null}){
+			alert('로그인 후 이용하세요');
+			return false;
+		}
+		return true;
 	}
-	$("#replySubmit").click(function(){
+	
+	/* $("#replySubmit").click(function(){
 		alert('눌림');
 		if($("#replyContent").val()){
 			var query ={
@@ -150,7 +160,8 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 		}else{
 			alert('내용을 입력하세요');
 		}
-	});
+	}); */
+	
 </script>
 </head>
 <body>
@@ -208,9 +219,9 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 				${comment.content}<br>
 				<font size="2">${comment.regdate}</font>
 				<br>
-				<form action="${cp}/board/reply" method="post">
+				<form action="${cp}/board/reply" method="post" name="reply${i.index}" onsubmit="return replySubmit(${i.index})">
 				<input id="replyContent" type="text" name="replyContent">
-				<input id="replySubmit" type="submit" value="답글쓰기">
+				<input type="submit" value="답글쓰기" >
 				<input type="hidden" id="replyReStep" value="${comment.reStep }" name="replyReStep">
 				<input type="hidden" id="replyReLevel" value="${comment.reLevel }" name="replyReLevel">
 				<input type='hidden' id='replyName' value='${sessionScope.name}' name="replyName">
@@ -223,28 +234,24 @@ var contextPath=window.location.pathname.substring(0,window.location.pathname.in
 			
 			<tr>
 				<td colspan="2">
-				<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+				<c:forEach var="j" begin="1" end="${comment.reStep-2 }">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
-				ㄴ&nbsp;
-				<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				</c:forEach>
-				${comment.name}<br>
-				<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+				ㄴ${comment.name}<br>
+				<c:forEach var="j" begin="1" end="${comment.reStep-2 }">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 				${comment.content}<br>
-				<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+				<c:forEach var="j" begin="1" end="${comment.reStep-2 }">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 				<font size="2">${comment.regdate}</font>
 				<br>
-				<form action="${cp}/board/rereply" method="post">
-					<c:forEach var="i" begin="1" end="${comment.reStep-2 }">
+				<form action="${cp}/board/rereply" method="post" name="rereply${i.index}" onsubmit="return rereplySubmit(${i.index})">
+					<c:forEach var="j" begin="1" end="${comment.reStep-2 }">
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:forEach>
-					<input id="rereplyContent" type="text" name="rereplyContent">
+					<input id="rereplyContent" type="text" name="rereplyContent" >
 					<input id="replySubmit" type="submit" value="답글쓰기">
 					<input type="hidden" id="replyReStep" value="${comment.reStep }" name="rereplyReStep">
 					<input type="hidden" id="replyReLevel" value="${comment.reLevel }" name="rereplyReLevel">
