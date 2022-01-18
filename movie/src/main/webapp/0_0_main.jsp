@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메가박스</title>
+<title>무비박스</title>
 </head>
 <body>
 	
