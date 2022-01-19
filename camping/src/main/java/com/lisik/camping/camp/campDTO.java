@@ -2,6 +2,7 @@ package com.lisik.camping.camp;
 
 public class campDTO {
 	private int no;
+	private String name;
 	private String address;
 	private String type;
 	private int price;
@@ -14,6 +15,12 @@ public class campDTO {
 	}
 	public void setNo(int no) {
 		this.no = no;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getAddress() {
 		return address;
