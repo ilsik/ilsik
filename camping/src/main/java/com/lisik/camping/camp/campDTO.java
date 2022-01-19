@@ -10,6 +10,20 @@ public class campDTO {
 	private String img;
 	private int like;
 	private double scope;
+	private String callNum;
+	private String site;
+	public String getCallNum() {
+		return callNum;
+	}
+	public void setCallNum(String callNum) {
+		this.callNum = callNum;
+	}
+	public String getSite() {
+		return site;
+	}
+	public void setSite(String site) {
+		this.site = site;
+	}
 	public int getNo() {
 		return no;
 	}

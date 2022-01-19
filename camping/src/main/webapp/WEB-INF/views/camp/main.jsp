@@ -13,9 +13,7 @@
 </head>
 <body>
 <jsp:include page="top.jsp"/>
-<br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br>
+
 <jsp:include page="${cont }"/>
 
 </body>

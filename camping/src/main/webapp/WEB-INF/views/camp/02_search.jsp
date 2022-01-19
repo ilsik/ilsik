@@ -13,48 +13,38 @@
 		width: 400px;
 		height: 300px;
 	}
+	button {
+		background-color: gray;
+		color: white;
+}
 </style>
 </head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script type="text/javascript">
-var contextPath=window.location.pathname.substring(0,window.location.pathname.indexOf("/",2));
-	$(document).ready(function(){
-		var index=0;
-		$("#prev").click(function(){
-			var query = {
-				index : $("#index").val()
-			};
-			
-		});
-		function nextImg(i,img){
-			document.getElementById("img").src="${cp }/resources/img/${imgSearchList.get(1).img}";
-		}
+	function select(no){
+		location.href="${cp}/select.do?no="+no;
+	}
 		
-	});
+		
 </script>
 <body>
 <div align="center" style="color: white;">
-	<table>
+	<table border="1">
 		<c:forEach var="camp" items="${campSearchList}">
 			<tr>
-				<td><div id="prev"><a href="#prev"><img src="${cp }/resources/img/prev.png"></a></div></td>
-				<c:forEach var="img" items="${imgSearchList}" varStatus="i" begin="${index}" end="${index}">
-					<c:if test="${camp.no eq img.no }">
-						<td align="center"><img src="${cp }/resources/img/${img.img}" alt="${img.img}" id="img"></td>
-						<input type="hidden" onclick="nextImg(${i.index+1},${img.img})" value="${i.index}">
-					</c:if>
-				</c:forEach>
-				<td><div id="next"><a href="#next"><img src="${cp }/resources/img/next.png"></a></div></td>
+				<td align="center" colspan="2"><a href="#" onclick="select(${camp.no})"><img id="img" src="${cp}/resources/img/${camp.img}" alt="${camp.img}"></a></td>
 			</tr>
 			<tr>
-				<td colspan="3">${camp.name }</td>
+				<td>${camp.name }</td>
+				<td rowspan="2" align="center"><button onclick="select(${camp.no})">상세보기</button></td>
 			</tr>
 			<tr>
-				<td colspan="3">${camp.address }</td>
+				<td>${camp.address }</td>
 			</tr>
 			<tr>
-				<td colspan="3" align="right">${df.format(camp.price) }원~</td>
+			
+				<td align="right" colspan="2">${df.format(camp.price) }원~</td>
 			</tr>
 		</c:forEach>
 	</table>

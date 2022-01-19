@@ -62,15 +62,14 @@ public class campDAO {
 		}
 		return campSearchList;
 	}
-	public ArrayList<imgDTO>imgSearchList(String search){
+	public ArrayList<imgDTO>imgSearchList(int no){
 		ArrayList<imgDTO>imgSearchList=new ArrayList<imgDTO>();
-		String searchName="%"+search+"%";
 		try {
 			conn=datasource.getConnection();
 			
-			String sql="select * from img where camp_No in (select camp_No from camp where camp_name like ?)";
+			String sql="select * from img where camp_No=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, searchName);
+			pstmt.setInt(1, no);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				imgDTO img=new imgDTO();

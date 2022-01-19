@@ -34,18 +34,11 @@ public class campController {
 		
 		String search=request.getParameter("search");
 		ArrayList<campDTO>campSearchList=dao.campSearchList(search);
-		ArrayList<imgDTO>imgSearchList=dao.imgSearchList(search);
-		for(int i=0;i<imgSearchList.size();i++) {
-			System.out.println(imgSearchList.get(i).getNo());
-			System.out.println(imgSearchList.get(i).getImg());
-		}
-		int index=0;
+		
 		
 		DecimalFormat df=new DecimalFormat("###,###");
 		
 		model.addAttribute("campSearchList", campSearchList);
-		model.addAttribute("imgSearchList", imgSearchList);
-		model.addAttribute("index", index);
 		model.addAttribute("cont","02_search.jsp");
 		model.addAttribute("df",df);
 		
@@ -68,13 +61,37 @@ public class campController {
 	public String nextImg(HttpServletResponse response,Model model,HttpServletRequest request) {
 		System.out.println("====nextImg 시작=====");
 		
-		int index=Integer.parseInt(request.getParameter("index"));
-		
+		int no=Integer.parseInt(request.getParameter("no")); 
+		int index=Integer.parseInt(request.getParameter("index")); 
 		index+=1;
-		System.out.println(index);
+		model.addAttribute("no", no);
 		model.addAttribute("index", index);
 		
 		System.out.println("====nextImg 끝=====");
-		return "camp/02_check";
+		return "redirect:/select.do";
+	}
+	@RequestMapping(value = "/select.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String select(HttpServletResponse response,Model model,HttpServletRequest request) {
+		System.out.println("====select 시작=====");
+		int index;
+		if(request.getParameter("index")==null) {
+			index=0;
+		}else {
+			index=Integer.parseInt(request.getParameter("index"));
+		}
+		int no=Integer.parseInt(request.getParameter("no"));
+		
+		ArrayList<imgDTO>imgSearchList=dao.imgSearchList(no);
+		
+		for(int i=0;i<imgSearchList.size();i++) {
+			System.out.println(imgSearchList.get(i).getNo());
+			System.out.println(imgSearchList.get(i).getImg());
+		}
+		model.addAttribute("cont","03_select.jsp");
+		model.addAttribute("imgSearchList", imgSearchList);
+		model.addAttribute("index", index);
+		
+		System.out.println("====select 끝=====");
+		return "camp/main";
 	}
 }
